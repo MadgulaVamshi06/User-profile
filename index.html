@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+</head>
+<style>
+    .user-profile {
+            display: flex;
+            margin: 12px;
+        }
+        .user-profile img {
+            width: 50px; 
+            height: 50px;
+            margin-right: 10px; 
+        }
+        .user-profile p {
+            font-size: 16px; 
+            margin: 0; 
+            line-height: 50px; 
+        }
+</style>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // Your  code will go here
+    let root = ReactDOM.createRoot(document.getElementById("root"));
+
+    function App() {
+        const [users, setUser] = React.useState([
+            {
+                "id": 1,
+                "email": "george.bluth@reqres.in",
+                "first_name": "George",
+                "last_name": "Bluth",
+                "avatar": "https://reqres.in/img/faces/1-image.jpg"
+            },
+            {
+                "id": 2,
+                "email": "janet.weaver@reqres.in",
+                "first_name": "Janet",
+                "last_name": "Weaver",
+                "avatar": "https://reqres.in/img/faces/2-image.jpg"
+            },
+            {
+                "id": 3,
+                "email": "emma.wong@reqres.in",
+                "first_name": "Emma",
+                "last_name": "Wong",
+                "avatar": "https://reqres.in/img/faces/3-image.jpg"
+            },
+            {
+                "id": 4,
+                "email": "eve.holt@reqres.in",
+                "first_name": "Eve",
+                "last_name": "Holt",
+                "avatar": "https://reqres.in/img/faces/4-image.jpg"
+            },
+            {
+                "id": 5,
+                "email": "charles.morris@reqres.in",
+                "first_name": "Charles",
+                "last_name": "Morris",
+                "avatar": "https://reqres.in/img/faces/5-image.jpg"
+            },
+            {
+                "id": 6,
+                "email": "tracey.ramos@reqres.in",
+                "first_name": "Tracey",
+                "last_name": "Ramos",
+                "avatar": "https://reqres.in/img/faces/6-image.jpg"
+            }
+        ])
+        const [singleUser, setsingleUser] = React.useState("");
+
+        const filterUsers = users.filter((user) =>
+            `${user.first_name} ${user.last_name}`
+                .toLocaleLowerCase()
+                .includes(singleUser.toLocaleLowerCase())
+        );
+        return (
+            <div>
+                <input type="text" placeholder="Enter Username"
+                    onChange={(e) => setsingleUser(e.target.value)} />
+                {singleUser && filterUsers.map((user, id) => < UserProfile user={user} key={id} />)}
+            </div>
+        );
+    }
+    function UserProfile({ user }) {
+ 
+        return (
+            <div className="user-profile">
+                <img src={user.avatar} alt="No image" />
+                <p>{user.first_name} {user.last_name}</p>
+            </div>
+        );
+    }
+    root.render(<App />)
+</script>
+
+</html>
